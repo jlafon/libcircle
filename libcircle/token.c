@@ -477,7 +477,6 @@ int32_t CIRCLE_check_for_requests(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* 
     int* requestors = (int*)calloc(st->size, sizeof(int));
     uint32_t i = 0;
     uint32_t rcount = 0;
-
     /* This loop is only excuted once.  It is used to initiate receives.
      * When a received is completed, we repost it immediately to capture
      * the next request */
@@ -512,7 +511,7 @@ int32_t CIRCLE_check_for_requests(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* 
                     return ABORT;
                 }
 
-                // LOG(CIRCLE_LOG_DBG,"Received work request from %d\n",i);
+//                LOG(CIRCLE_LOG_DBG,"Received work request from %d\n",i);
                 requestors[rcount++] = i;
                 st->request_flag[i] = 0;
             }

@@ -44,6 +44,8 @@ typedef struct CIRCLE_mpi_state_st {
 
 typedef struct CIRCLE_state_st {
     CIRCLE_mpi_state_st* mpi_state_st;
+    int* request_flag;
+    int* request_recv_buf;
 
     int8_t verbose;
     int8_t have_token;
@@ -54,10 +56,8 @@ typedef struct CIRCLE_state_st {
     int8_t term_pending_receive;
     int8_t incoming_token;
 
-    int32_t* request_recv_buf;
     int32_t work_request_tries;
     int32_t token_partner;
-    int32_t* request_flag;
     int32_t term_flag;
     
     uint32_t rank;
