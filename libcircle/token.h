@@ -48,28 +48,28 @@ typedef struct CIRCLE_state_st {
     int8_t verbose;
     int8_t have_token;
     int8_t token;
-    uint32_t rank;
-    uint32_t size;
-    uint32_t next_processor;
-    uint32_t token_partner;
-
-    int8_t term_flag;
     int8_t work_flag;
-    int8_t* request_flag;
     int8_t work_pending_request;
     int8_t request_pending_receive;
     int8_t term_pending_receive;
     int8_t incoming_token;
 
+    int32_t* request_recv_buf;
+    int32_t work_request_tries;
+    int32_t token_partner;
+    int32_t* request_flag;
+    int32_t term_flag;
+    
+    uint32_t rank;
+    uint32_t size;
+    uint32_t next_processor;
     uint32_t* work_offsets;
     uint32_t* request_offsets;
 
-    int32_t* request_recv_buf;
-    int32_t work_request_tries;
-} CIRCLE_state_st;
+   } CIRCLE_state_st;
 
-uint32_t  CIRCLE_get_next_proc(int32_t rank, int32_t size);
-void CIRCLE_send_no_work(int32_t dest);
+uint32_t  CIRCLE_get_next_proc(uint32_t rank, uint32_t size);
+void CIRCLE_send_no_work(uint32_t dest);
 int32_t  CIRCLE_check_for_term(CIRCLE_state_st* st);
 int32_t  CIRCLE_wait_on_probe(CIRCLE_state_st* st, int32_t source, int32_t tag);
 

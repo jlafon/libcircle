@@ -66,7 +66,7 @@ int8_t CIRCLE_dequeue(char* element)
 /**
  * Wrapper for getting the local queue size
  */
-int32_t CIRCLE_local_queue_size()
+uint32_t CIRCLE_local_queue_size()
 {
     return CIRCLE_INPUT_ST.queue->count;
 }
@@ -110,7 +110,7 @@ void CIRCLE_init_local_state(CIRCLE_state_st* local_state, int32_t size)
     local_state->work_offsets = (uint32_t*) calloc(\
                                 CIRCLE_INITIAL_INTERNAL_QUEUE_SIZE, \
                                 sizeof(unsigned int));
-    local_state->request_flag = (int8_t*) calloc(size, sizeof(int8_t));
+    local_state->request_flag = (int32_t*) calloc(size, sizeof(int32_t));
     local_state->request_recv_buf = (int32_t*) calloc(size, sizeof(int32_t));
 
     local_state->mpi_state_st->request_status = \
@@ -190,8 +190,8 @@ void CIRCLE_work_loop(CIRCLE_state_st* sptr, CIRCLE_handle* queue_handle)
  */
 void CIRCLE_cleanup_mpi_messages(CIRCLE_state_st* sptr)
 {
-    int i = 0;
-    int j = 0;
+    uint32_t i = 0;
+    uint32_t j = 0;
 
     /* Make sure that all pending work requests are answered. */
     for(j = 0; j < sptr->size; j++) {

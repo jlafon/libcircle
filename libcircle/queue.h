@@ -1,6 +1,6 @@
 #ifndef INTERNAL_QUEUE_H
 #define INTERNAL_QUEUE_H
-
+#include<stdint.h>
 /* The initial queue size for malloc. */
 #ifndef CIRCLE_INITIAL_INTERNAL_QUEUE_SIZE
 #define CIRCLE_INITIAL_INTERNAL_QUEUE_SIZE 400000

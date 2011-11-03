@@ -191,9 +191,9 @@ int32_t CIRCLE_check_for_term(CIRCLE_state_st* st)
 /**
  * This returns a random rank (not yourself).
  */
-inline int32_t CIRCLE_get_next_proc(int32_t rank, int32_t size)
+inline uint32_t CIRCLE_get_next_proc(uint32_t rank, uint32_t size)
 {
-    int32_t result = rand() % size;
+    uint32_t result = rand() % size;
 
     while(result == rank) {
         result = rand() % size;
@@ -213,7 +213,7 @@ inline int32_t CIRCLE_get_next_proc(int32_t rank, int32_t size)
 int32_t CIRCLE_wait_on_probe(CIRCLE_state_st* st, int32_t source, int32_t tag)
 {
     int32_t flag = 0;
-    int32_t i = 0;
+    uint32_t i = 0;
     MPI_Status temp;
 
     while(!flag) {
@@ -330,7 +330,7 @@ int32_t CIRCLE_request_work(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* st)
              *st->mpi_state_st->work_comm, MPI_STATUS_IGNORE);
 
     qp->count = items;
-    int32_t i = 0;
+    uint32_t i = 0;
 
     for(i = 0; i < qp->count; i++) {
         qp->strings[i] = qp->base + st->work_offsets[i + 2];
@@ -359,7 +359,7 @@ int32_t CIRCLE_request_work(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* st)
 /**
  * Sends a no work reply to someone requesting work.
  */
-void CIRCLE_send_no_work(int32_t dest)
+void CIRCLE_send_no_work(uint32_t dest)
 {
     int32_t no_work[2];
 
@@ -415,7 +415,7 @@ int32_t CIRCLE_send_work(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* st, \
     }
 
     /* For termination detection */
-    if(dest < st->rank || dest == st->token_partner) {
+    if((int)dest < (int)st->rank || (int)dest == (int)st->token_partner) {
         st->token = BLACK;
     }
 
@@ -475,8 +475,8 @@ int32_t CIRCLE_send_work(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* st, \
 int32_t CIRCLE_check_for_requests(CIRCLE_internal_queue_t* qp, CIRCLE_state_st* st)
 {
     int* requestors = (int*)calloc(st->size, sizeof(int));
-    int32_t i = 0;
-    int32_t rcount = 0;
+    uint32_t i = 0;
+    uint32_t rcount = 0;
 
     /* This loop is only excuted once.  It is used to initiate receives.
      * When a received is completed, we repost it immediately to capture

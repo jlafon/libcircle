@@ -18,7 +18,7 @@ FILE* CIRCLE_debug_stream;
 enum CIRCLE_loglevel CIRCLE_debug_level;
 
 /** The rank value of the current node. */
-uint32_t  CIRCLE_global_rank;
+int32_t  CIRCLE_global_rank;
 
 /** A struct which holds a reference to all input given through the API. */
 CIRCLE_input_st CIRCLE_INPUT_ST;
